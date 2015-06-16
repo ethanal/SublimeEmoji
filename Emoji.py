@@ -24,7 +24,7 @@ def load_emoji():
     return sorted(data, key=lambda x: names[x[0]])
 
 
-class PasteEmojiCommand(sublime_plugin.TextCommand):
+class InsertEmojiCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, emoji):
         sublime.status_message("ran")
@@ -32,7 +32,7 @@ class PasteEmojiCommand(sublime_plugin.TextCommand):
             self.view.insert(edit, sel.begin(), emoji)
 
 
-class EmojiCommand(sublime_plugin.TextCommand):
+class SelectEmojiCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
         window = sublime.active_window()
@@ -41,6 +41,6 @@ class EmojiCommand(sublime_plugin.TextCommand):
 
         def callback(selection):
             emoji = data[selection][1]
-            self.view.run_command("paste_emoji", {"emoji": emoji})
+            self.view.run_command("insert_emoji", {"emoji": emoji})
 
         window.show_quick_panel(items, callback)
