@@ -27,7 +27,6 @@ def load_emoji():
 class InsertEmojiCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, emoji):
-        sublime.status_message("ran")
         for sel in self.view.sel():
             self.view.insert(edit, sel.begin(), emoji)
 
@@ -40,7 +39,8 @@ class SelectEmojiCommand(sublime_plugin.TextCommand):
         items = [t[-1] for t in data]
 
         def callback(selection):
-            emoji = data[selection][1]
-            self.view.run_command("insert_emoji", {"emoji": emoji})
+            if selection >= 0:
+                emoji = data[selection][1]
+                self.view.run_command("insert_emoji", {"emoji": emoji})
 
         window.show_quick_panel(items, callback)
