@@ -3,17 +3,16 @@ from __future__ import unicode_literals
 
 import sublime
 import sublime_plugin
-import os
-import codecs
 import re
 
 
 def load_emoji():
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "emoji-data.txt")
-    f = codecs.open(path, encoding="utf-8")
+    f = sublime.load_binary_resource("/".join(("Packages", __package__, "emoji-data.txt")))
+    lines = f.decode("utf-8").strip().split("\n")
     data = []
     names = {}
-    for line in f:
+
+    for line in lines:
         if line[0] == "#":
             continue
         code, emoji, name = re.findall("^([A-Z0-9 ]+) ;.+\((.+)\) (.+)", line)[0]
