@@ -33,7 +33,7 @@ class InsertEmojiCommand(sublime_plugin.TextCommand):
 class SelectEmojiCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        window = sublime.active_window()
+        window = self.view.window()
         data = load_emoji()
         items = [t[-1] for t in data]
 
