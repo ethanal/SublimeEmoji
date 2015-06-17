@@ -23,13 +23,6 @@ def load_emoji():
     return sorted(data, key=lambda x: names[x[0]])
 
 
-class InsertEmojiCommand(sublime_plugin.TextCommand):
-
-    def run(self, edit, emoji):
-        for sel in self.view.sel():
-            self.view.insert(edit, sel.begin(), emoji)
-
-
 class SelectEmojiCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
@@ -40,6 +33,6 @@ class SelectEmojiCommand(sublime_plugin.TextCommand):
         def callback(selection):
             if selection >= 0:
                 emoji = data[selection][1]
-                self.view.run_command("insert_emoji", {"emoji": emoji})
+                self.view.run_command("insert", {"characters": emoji})
 
         window.show_quick_panel(items, callback)
